@@ -1,0 +1,15 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.docker
+
+# Python
+hotel_app/__pycache__/
+hotel_app/*/__pycache__/
+hotel_app/*/*/__pycache__/
+hotel_app/*/*/*/__pycache__/
+.env/
+.venv/
+venv/
