@@ -1,4 +1,10 @@
 from django.contrib import admin
-from .models import Room
+from .models import Room, User, Booking
 
-admin.site.register(Room)
+
+class UserAdmin(admin.ModelAdmin):
+    readonly_fields = ('id',)
+
+
+admin.site.register([Room, Booking])
+admin.site.register(User, UserAdmin)
