@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Room</title>
+</head>
+
+<body>
+  <form action="" method="POST">
+    <div class="input-wrapper">
+        <label for="room_type-id">Room Type</label>
+        {{ form.room_type }}
+    </div>
+    <div class="input-wrapper">
+        <label for="password-id">First name</label>
+        {% if request.user %}
+          <input type="text" value='{{ request.user.username }}'>
+        {% else %}
+          {{ form.firstname }}
+        {% endif %}
+    </div>
+    {% csrf_token %}
+    <button type="submit">Book</button>
+  </form>
+</body>
+
+</html>

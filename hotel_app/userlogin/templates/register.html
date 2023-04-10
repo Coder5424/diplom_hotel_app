@@ -1,0 +1,41 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'hotel/css/style.css' %}">
+    <title>Register</title>
+</head>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="container">
+    <h1>Register</h1>
+    <p>Kindly fill in this form to register.</p>
+    <label for="firstname"><b>First name</b></label>
+      {{ form.firstname }}
+
+    <label for="lastname"><b>Last name</b></label>
+    {{ form.lastname }}
+
+    <label for="email"><b>Email</b></label>
+    {{ form.email }}
+
+    <label for="phonenumber"><b>Phone number</b></label>
+    {{ form.phone_number }}
+
+    <label for="pwd"><b>Password</b></label>
+    {{ form.password }}
+
+    <button type="submit">Register</button>
+  </div>
+ <!-- wrapping the text inside the p tag with a tag for routing to the login page URL-->
+  <!-- the # must ideally be replaced by the login page URL -->
+  <div>
+    <p>Already have an account? <a href="#">Log in</a>.</p>
+  </div>
+</form>

@@ -1,20 +1,6 @@
 import uuid
+from django.conf import settings
 from django.db import models
-
-
-class User(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    firstname = models.CharField(max_length=30)
-    lastname = models.CharField(max_length=30)
-    email = models.EmailField(max_length=254, unique=True)
-    phone_number = models.CharField(max_length=20, unique=True)
-    password = models.CharField(max_length=20)
-    is_admin = models.BooleanField(default=False)
-    is_superadmin = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-
-    def __str__(self):
-        return f'{self.firstname} {self.lastname}'
 
 
 class Room(models.Model):
@@ -33,13 +19,16 @@ class Room(models.Model):
 
 
 class Booking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=30, blank=True)
+    lastname = models.CharField(max_length=30, blank=True)
+    email = models.EmailField(max_length=254, blank=True, unique=True)
+    phone_number = models.CharField(max_length=20, blank=True, unique=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.user} has booked in {self.room} from {self.check_in} to {self.check_out}'
+        return f'{self.firstname} {self.lastname} has booked in {self.room} from {self.check_in} to {self.check_out}'
 
 
 
