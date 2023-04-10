@@ -15,11 +15,27 @@
     </div>
     <div class="input-wrapper">
         <label for="password-id">First name</label>
-        {% if request.user %}
-          <input type="text" value='{{ request.user.username }}'>
-        {% else %}
           {{ form.firstname }}
-        {% endif %}
+    </div>
+    <div class="input-wrapper">
+        <label for="room_type-id">Last name</label>
+        {{ form.lastname }}
+    </div>
+    <div class="input-wrapper">
+        <label for="room_type-id">Email</label>
+        {{ form.email }}
+    </div>
+    <div class="input-wrapper">
+        <label for="room_type-id">Phone number</label>
+        {{ form.phone_number }}
+    </div>
+    <div class="input-wrapper">
+        <label for="room_type-id">From</label>
+        {{ form.check_in }}
+    </div>
+    <div class="input-wrapper">
+        <label for="room_type-id">To</label>
+        {{ form.check_out }}
     </div>
     {% csrf_token %}
     <button type="submit">Book</button>

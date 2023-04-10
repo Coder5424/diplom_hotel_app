@@ -13,14 +13,14 @@ class AvailabilityForm(forms.Form):
     email = forms.EmailField(max_length=254)
     phone_number = forms.CharField(max_length=20, required=True)
     check_in = forms.DateTimeField(
-        input_formats=["%Y-%m-%dT13:00", ],
+        input_formats=["%Y-%m-%d", ],
         widget=forms.DateTimeInput(
             attrs={'type': 'date'}
         ),
         required=True
     )
     check_out = forms.DateTimeField(
-        input_formats=["%Y-%m-%dT12:00", ],
+        input_formats=["%Y-%m-%d", ],
         widget=forms.DateTimeInput(
             attrs={'type': 'date'}
         ),

@@ -3,6 +3,7 @@ from django.views.generic import ListView, FormView
 from .models import Room, Booking
 from .forms import AvailabilityForm
 from .booking.availability import check_availability
+from datetime import time
 
 
 # class RoomList(ListView):
@@ -20,8 +21,8 @@ class BookingView(FormView):
     def form_valid(self, form):
         data = form.cleaned_data
         room_list = Room.objects.filter(type=data['room_type'])
-        check_in = data['check_in']
-        check_out = data['check_out']
+        check_in = data['check_in'].combine(data['check_in'], time(13, 0))
+        check_out = data['check_out'].combine(data['check_out'], time(12, 0))
 
         available_check = False
         available_room = None
@@ -34,7 +35,10 @@ class BookingView(FormView):
 
         if available_check:
             booking = Booking.objects.create(
-                user=self.request.user,
+                firstname=data['firstname'],
+                lastname=data['lastname'],
+                email=data['email'],
+                phone_number=data['phone_number'],
                 room=available_room,
                 check_in=check_in,
                 check_out=check_out,
