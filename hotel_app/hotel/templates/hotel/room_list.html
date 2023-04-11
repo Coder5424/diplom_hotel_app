@@ -8,9 +8,19 @@
 </head>
 
 <body>
- {% for room in room_list %}
-  {{ room }}
- {% endfor %}
+<h2>Rooms</h2>
+      <!-- Main Content -->
+      <div id="rooms">
+        {% for room_type, room_url in room_list %}
+        <div class="room">
+          <a href="{{ room_url }}">
+
+          <h2>{{ room_type }}<h2>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
 </body>
 
 </html>

@@ -1,17 +1,38 @@
 from django.shortcuts import render, HttpResponse, redirect
-from django.views.generic import ListView, FormView
+from django.urls import reverse
+from django.views.generic import ListView, FormView, View
 from .models import Room, Booking
 from .forms import AvailabilityForm
 from .booking.availability import check_availability
 from datetime import time
 
 
-# class RoomList(ListView):
-#     model = Room
+def room_list_view(request):
+    room = Room.objects.first()
+    room_types = dict(room.room_types)
+    room_list = []
+    for room_type in room_types:
+        room_url = reverse('hotel:RoomDetailView', kwargs={'type': room_type})
+        room_list.append((room_type, room_url))
+
+    context = {'room_list': room_list}
+
+    return render(request, 'hotel/room_list.html', context)
 #
 #
 # class BookingList(ListView):
 #     model = Booking
+
+
+class RoomDetailView(View):
+    def get(self, request, *args, **kwargs):
+        room_type = self.kwargs.get('type', None)
+        room = Room.objects.filter(type=room_type)
+        if room:
+            context = {'room_type': room_type}
+            return render(request, 'hotel/room_detail_view.html', context)
+        else:
+            return HttpResponse('NO')
 
 
 class BookingView(FormView):
