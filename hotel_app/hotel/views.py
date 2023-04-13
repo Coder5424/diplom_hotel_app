@@ -4,7 +4,8 @@ from django.views.generic import ListView, FormView, View
 from .models import Room, Booking
 from .forms import AvailabilityForm
 from .booking.availability import check_availability
-from datetime import time
+from datetime import time, tzinfo
+import pytz
 
 
 def room_list_view(request):
@@ -44,6 +45,9 @@ class BookingView(FormView):
         room_list = Room.objects.filter(type=data['room_type'])
         check_in = data['check_in'].combine(data['check_in'], time(13, 0))
         check_out = data['check_out'].combine(data['check_out'], time(12, 0))
+
+        check_in = check_in.replace(tzinfo=pytz.utc)
+        check_out = check_out.replace(tzinfo=pytz.utc)
 
         available_check = False
         available_room = None

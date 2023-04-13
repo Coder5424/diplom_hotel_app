@@ -10,7 +10,7 @@ class Room(models.Model):
         ('Deluxe', 'Deluxe'),
     )
     type = models.CharField(max_length=8, choices=room_types)
-    number = models.IntegerField()
+    number = models.IntegerField(unique=True)
     beds = models.IntegerField()
     capacity = models.IntegerField()
 
@@ -21,8 +21,8 @@ class Room(models.Model):
 class Booking(models.Model):
     firstname = models.CharField(max_length=30, blank=True)
     lastname = models.CharField(max_length=30, blank=True)
-    email = models.EmailField(max_length=254, blank=True, unique=True)
-    phone_number = models.CharField(max_length=20, blank=True, unique=True)
+    email = models.EmailField(max_length=254, blank=True)
+    phone_number = models.CharField(max_length=20, blank=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
