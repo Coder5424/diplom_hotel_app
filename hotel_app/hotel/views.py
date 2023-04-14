@@ -38,7 +38,7 @@ class RoomDetailView(View):
 
 class BookingView(FormView):
     form_class = AvailabilityForm
-    template_name = 'availability_form.html'
+    template_name = 'hotel/availability_form.html'
 
     def form_valid(self, form):
         data = form.cleaned_data

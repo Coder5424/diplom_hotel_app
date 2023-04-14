@@ -1,9 +1,17 @@
 from django import forms
+from django.contrib.auth import get_user_model
 
 
-class UserRegisterForm(forms.Form):
-    firstname = forms.CharField(max_length=30, required=True)
-    lastname = forms.CharField(max_length=30, required=True)
-    email = forms.EmailField(max_length=254, required=True)
-    phone_number = forms.CharField(max_length=20, required=True)
-    password = forms.CharField(max_length=20, widget=forms.PasswordInput)
+class UserRegisterForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = get_user_model()
+        fields = ('firstname', 'lastname', 'email', 'phone_number',)
+        required_fields = fields
+
+
+class UserLoginForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput())
+

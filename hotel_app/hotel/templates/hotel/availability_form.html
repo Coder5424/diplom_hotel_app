@@ -15,19 +15,43 @@
     </div>
     <div class="input-wrapper">
         <label for="password-id">First name</label>
+          
+        {% if user.is_authenticated %}
+          <input value='{{ request.user.firstname }}' name="firstname" autocomplete="on">
+        {% else %}
           {{ form.firstname }}
+        {% endif %}
+
     </div>
     <div class="input-wrapper">
         <label for="room_type-id">Last name</label>
-        {{ form.lastname }}
+
+        {% if user.is_authenticated %}
+          <input value='{{ request.user.lastname }}' name="lastname" autocomplete="on">
+        {% else %}
+          {{ form.lastname }}
+        {% endif %}
+
     </div>
     <div class="input-wrapper">
         <label for="room_type-id">Email</label>
-        {{ form.email }}
+        
+        {% if user.is_authenticated %}
+          <input value='{{ request.user.email }}' type=email name="email" autocomplete="on">
+        {% else %}
+          {{ form.email }}
+        {% endif %}
+        
     </div>
     <div class="input-wrapper">
         <label for="room_type-id">Phone number</label>
-        {{ form.phone_number }}
+                
+        {% if user.is_authenticated %}
+          <input value='{{ request.user.phone_number }}' name="phone_number" autocomplete="on">
+        {% else %}
+          {{ form.phone_number }}
+        {% endif %}
+        
     </div>
     <div class="input-wrapper">
         <label for="room_type-id">From</label>
