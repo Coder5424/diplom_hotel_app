@@ -24,8 +24,8 @@ class Booking(models.Model):
     email = models.EmailField(max_length=254, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    check_in = models.DateTimeField()
-    check_out = models.DateTimeField()
+    check_in = models.DateField()
+    check_out = models.DateField()
 
     def __str__(self):
         return f'{self.firstname} {self.lastname} has booked in {self.room} from {self.check_in} to {self.check_out}'

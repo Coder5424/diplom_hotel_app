@@ -43,11 +43,9 @@ class BookingView(FormView):
     def form_valid(self, form):
         data = form.cleaned_data
         room_list = Room.objects.filter(type=data['room_type'])
-        check_in = data['check_in'].combine(data['check_in'], time(13, 0))
-        check_out = data['check_out'].combine(data['check_out'], time(12, 0))
 
-        check_in = check_in.replace(tzinfo=pytz.utc)
-        check_out = check_out.replace(tzinfo=pytz.utc)
+        check_in = data['check_in']
+        check_out = data['check_out']
 
         available_check = False
         available_room = None
@@ -71,6 +69,5 @@ class BookingView(FormView):
             booking.save()
 
             return HttpResponse(booking)
-
         else:
             return HttpResponse('All of this type rooms are booked')
