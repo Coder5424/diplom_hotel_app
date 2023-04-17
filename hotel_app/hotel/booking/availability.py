@@ -2,7 +2,7 @@ import datetime
 from ..models import Room, Booking
 
 
-def check_availability(room, check_in, check_out):
+def check_availability(room, check_in):
     available_list = []
     booking_list = Booking.objects.filter(room=room)
 

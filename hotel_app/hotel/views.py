@@ -5,7 +5,6 @@ from .models import Room, Booking
 from .forms import AvailabilityForm
 from .booking.availability import check_availability
 from datetime import time, tzinfo
-import pytz
 
 
 def room_list_view(request):
@@ -51,7 +50,7 @@ class BookingView(FormView):
         available_room = None
 
         for room in room_list:
-            if check_availability(room, check_in, check_out):
+            if check_availability(room, check_in):
                 available_check = True
                 available_room = room
                 break
