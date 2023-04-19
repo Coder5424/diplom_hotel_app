@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking List</title>
+</head>
+
+<body>
+<h2>Rooms</h2>
+      <!-- Main Content -->
+      <div id="rooms">
+        {% for booking, booking_url in booking_list %}
+        <div class="room">
+          <a href="{{ booking_url }}">
+
+          <h2>{{ booking }}<h2>
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'userlogin/css/style.css' %}">
+    <title>rruyuyuytutyuytutuy</title>
+</head>
+
+<body>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="input-wrapper">
+        <label for="password-id">First name</label>
+          <input value='{{ firstname }}' name="firstname" autocomplete="on">
+        </div>
+
+        <div class="input-wrapper">
+        <label for="password-id">Last name</label>
+          <input value='{{ lastname }}' name="lastname" autocomplete="on">
+        </div>
+
+        <div class="input-wrapper">
+        <label for="password-id">Email</label>
+          <input value='{{ email }}' name="email" autocomplete="on">
+        </div>
+
+        <div class="input-wrapper">
+        <label for="password-id">Phone number</label>
+          <input value='{{ phone_number }}' name="phone_number" autocomplete="on">
+        </div>
+
+        <div class="input-wrapper">
+        <label for="password-id">Passport</label>
+          <input value='{{ passport }}' name="passport" autocomplete="on">
+        </div>
+
+        <div class="input-wrapper">
+        <label for="password-id">Room</label>
+          <input value='{{ room }}' name="room" autocomplete="on">
+        </div>
+
+        <div class="input-wrapper">
+        <label for="password-id">Check In</label>
+          <input value='{{ check_in }}' name="check_in" autocomplete="on">
+        </div>
+
+        <div class="input-wrapper">
+        <label for="password-id">Check Out</label>
+          <input value='{{ check_out }}' name="check_out" autocomplete="on">
+        </div>
+
+        <button type="submit">CheckIn</button>
+
+    </form>
+</body>
+

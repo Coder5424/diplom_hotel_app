@@ -10,12 +10,12 @@ class Room(models.Model):
         ('Deluxe', 'Deluxe'),
     )
     type = models.CharField(max_length=8, choices=room_types)
-    number = models.IntegerField(unique=True)
+    number = models.IntegerField(primary_key=True, unique=True)
     beds = models.IntegerField()
     capacity = models.IntegerField()
 
     def __str__(self):
-        return f'room number {self.number}. {self.type} with {self.beds} beds for {self.capacity} people.'
+        return f'{self.number}'
 
 
 class Booking(models.Model):
@@ -28,7 +28,7 @@ class Booking(models.Model):
     check_out = models.DateField()
 
     def __str__(self):
-        return f'{self.firstname} {self.lastname} has booked in {self.room} from {self.check_in} to {self.check_out}'
+        return f'{self.firstname} {self.lastname} - {self.room}:{self.room.type} - {self.check_in} : {self.check_out}'
 
 
 
