@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.generic import ListView, FormView, View
 from .models import Room, Booking
 from .forms import AvailabilityForm
-from .booking.availability import check_availability
+from .booking.booking_availability import check_booking_avail
 from datetime import time, tzinfo
 
 
@@ -18,10 +18,6 @@ def room_list_view(request):
     context = {'room_list': room_list}
 
     return render(request, 'hotel/room_list.html', context)
-#
-#
-# class BookingList(ListView):
-#     model = Booking
 
 
 class RoomDetailView(View):
@@ -50,7 +46,7 @@ class BookingView(FormView):
         available_room = None
 
         for room in room_list:
-            if check_availability(room, check_in):
+            if check_booking_avail(room, check_in, check_out):
                 available_check = True
                 available_room = room
                 break

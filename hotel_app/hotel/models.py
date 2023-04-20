@@ -15,7 +15,7 @@ class Room(models.Model):
     capacity = models.IntegerField()
 
     def __str__(self):
-        return f'{self.number}'
+        return f'{self.number} : {self.type}'
 
 
 class Booking(models.Model):
@@ -28,7 +28,7 @@ class Booking(models.Model):
     check_out = models.DateField()
 
     def __str__(self):
-        return f'{self.firstname} {self.lastname} - {self.room}:{self.room.type} - {self.check_in} : {self.check_out}'
+        return f'{self.firstname} {self.lastname} - {self.room} - {self.check_in} : {self.check_out}'
 
 
 

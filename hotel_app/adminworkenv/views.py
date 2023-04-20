@@ -7,6 +7,7 @@ from .forms import CheckInForm
 from hotel.models import Booking
 from userlogin.models import User
 from .models import CheckIn
+from .checkin.checkin_avail import check_checkin_avail
 
 
 def booking_list_view(request):
@@ -19,7 +20,7 @@ def booking_list_view(request):
             'lastname': booking.lastname,
             'email': booking.email,
             'phone_number': booking.phone_number,
-            'room': booking.room,
+            'room': booking.room.number,
             'check_in': booking.check_in,
             'check_out': booking.check_out,
         })
@@ -28,6 +29,10 @@ def booking_list_view(request):
     context = {'booking_list': booking_list}
 
     return render(request, 'adminworkenv/booking_list.html', context)
+
+
+def admin_page_view(request):
+    return render(request, 'adminworkenv/admin_page.html')
 
 
 class CheckInView(FormView):
@@ -80,34 +85,37 @@ class CheckInView(FormView):
     def form_valid(self, form):
         data = form.cleaned_data
 
-        checkin = CheckIn.objects.create(
-            firstname=data['firstname'],
-            lastname=data['lastname'],
-            email=data['email'],
-            phone_number=data['phone_number'],
-            passport=data['passport'],
-            room=data['room'],
-            check_in=data['check_in'],
-            check_out=data['check_out'],
-        )
-
-        if checkin:
-            checkin.save()
-
-            user = User.objects.get(
+        if check_checkin_avail(data['room'], data['check_in'], data['check_out']):
+            checkin = CheckIn.objects.create(
                 firstname=data['firstname'],
                 lastname=data['lastname'],
                 email=data['email'],
                 phone_number=data['phone_number'],
+                passport=data['passport'],
+                room=data['room'],
+                check_in=data['check_in'],
+                check_out=data['check_out'],
             )
 
-            if user:
-                if user.passport is None:
-                    user_passport = data['passport']
-                    user.passport = user_passport
-                    user.save()
+            if checkin:
+                checkin.save()
 
-            return HttpResponse(checkin)
+                user = User.objects.get(
+                    firstname=data['firstname'],
+                    lastname=data['lastname'],
+                    email=data['email'],
+                    phone_number=data['phone_number'],
+                )
+
+                if user:
+                    if user.passport is None:
+                        user_passport = data['passport']
+                        user.passport = user_passport
+                        user.save()
+
+                return HttpResponse(checkin)
+            else:
+                return HttpResponse('error')
+
         else:
-            return HttpResponse('error')
-
+            return HttpResponse('No')
