@@ -16,7 +16,7 @@
     <div class="input-wrapper">
         <label for="password-id">First name</label>
           
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and not user.is_staff %}
           <input value='{{ request.user.firstname }}' name="firstname" autocomplete="on">
         {% else %}
           {{ form.firstname }}
@@ -26,7 +26,7 @@
     <div class="input-wrapper">
         <label for="room_type-id">Last name</label>
 
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and not user.is_staff %}
           <input value='{{ request.user.lastname }}' name="lastname" autocomplete="on">
         {% else %}
           {{ form.lastname }}
@@ -36,7 +36,7 @@
     <div class="input-wrapper">
         <label for="room_type-id">Email</label>
         
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and not user.is_staff %}
           <input value='{{ request.user.email }}' type=email name="email" autocomplete="on">
         {% else %}
           {{ form.email }}
@@ -46,7 +46,7 @@
     <div class="input-wrapper">
         <label for="room_type-id">Phone number</label>
                 
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and not user.is_staff %}
           <input value='{{ request.user.phone_number }}' name="phone_number" autocomplete="on">
         {% else %}
           {{ form.phone_number }}

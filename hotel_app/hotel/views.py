@@ -4,7 +4,7 @@ from django.views.generic import ListView, FormView, View
 from .models import Room, Booking
 from .forms import AvailabilityForm
 from .booking.booking_availability import check_booking_avail
-from datetime import time, tzinfo
+from datetime import date
 
 
 def room_list_view(request):
@@ -42,27 +42,30 @@ class BookingView(FormView):
         check_in = data['check_in']
         check_out = data['check_out']
 
-        available_check = False
-        available_room = None
+        if (check_in <= check_out) and (check_in >= date.today()):
+            available_check = False
+            available_room = None
 
-        for room in room_list:
-            if check_booking_avail(room, check_in, check_out):
-                available_check = True
-                available_room = room
-                break
+            for room in room_list:
+                if check_booking_avail(room, check_in, check_out):
+                    available_check = True
+                    available_room = room
+                    break
 
-        if available_check:
-            booking = Booking.objects.create(
-                firstname=data['firstname'],
-                lastname=data['lastname'],
-                email=data['email'],
-                phone_number=data['phone_number'],
-                room=available_room,
-                check_in=check_in,
-                check_out=check_out,
-            )
-            booking.save()
+            if available_check:
+                booking = Booking.objects.create(
+                    firstname=data['firstname'],
+                    lastname=data['lastname'],
+                    email=data['email'],
+                    phone_number=data['phone_number'],
+                    room=available_room,
+                    check_in=check_in,
+                    check_out=check_out,
+                )
+                booking.save()
 
-            return HttpResponse(booking)
+                return HttpResponse(booking)
+            else:
+                return HttpResponse('All of this type rooms are booked')
         else:
-            return HttpResponse('All of this type rooms are booked')
+            return HttpResponse('Date Error')

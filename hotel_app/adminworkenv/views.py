@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate, logout
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -8,6 +9,7 @@ from hotel.models import Booking
 from userlogin.models import User
 from .models import CheckIn
 from .checkin.checkin_avail import check_checkin_avail
+from datetime import date
 
 
 def booking_list_view(request):
@@ -58,17 +60,17 @@ class CheckInView(FormView):
             check_out=check_out
         )
 
-        if booking:
-            context = {
-                'firstname': firstname,
-                'lastname': lastname,
-                'email': email,
-                'phone_number': phone_number,
-                'room': room,
-                'check_in': check_in,
-                'check_out': check_out
-            }
+        context = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'email': email,
+            'phone_number': phone_number,
+            'room': room,
+            'check_in': check_in,
+            'check_out': check_out
+        }
 
+        try:
             user = User.objects.get(
                 firstname=firstname,
                 lastname=lastname,
@@ -78,44 +80,53 @@ class CheckInView(FormView):
             user_passport = user.passport
             if user_passport is not None:
                 context['passport'] = user_passport
-            return render(request, 'adminworkenv/checkin.html', context)
-        else:
-            return HttpResponse('NO')
+
+        except ObjectDoesNotExist:
+            pass
+
+        return render(request, 'adminworkenv/checkin.html', context)
 
     def form_valid(self, form):
         data = form.cleaned_data
 
-        if check_checkin_avail(data['room'], data['check_in'], data['check_out']):
-            checkin = CheckIn.objects.create(
-                firstname=data['firstname'],
-                lastname=data['lastname'],
-                email=data['email'],
-                phone_number=data['phone_number'],
-                passport=data['passport'],
-                room=data['room'],
-                check_in=data['check_in'],
-                check_out=data['check_out'],
-            )
+        check_in = data['check_in']
+        check_out = data['check_out']
 
-            if checkin:
-                checkin.save()
-
-                user = User.objects.get(
+        if (check_in <= check_out) and (check_in >= date.today()):
+            if check_checkin_avail(data['room'], check_in, check_out):
+                checkin = CheckIn.objects.create(
                     firstname=data['firstname'],
                     lastname=data['lastname'],
                     email=data['email'],
                     phone_number=data['phone_number'],
+                    passport=data['passport'],
+                    room=data['room'],
+                    check_in=check_in,
+                    check_out=check_out,
                 )
 
-                if user:
+                checkin.save()
+
+                try:
+                    user = User.objects.get(
+                        firstname=data['firstname'],
+                        lastname=data['lastname'],
+                        email=data['email'],
+                        phone_number=data['phone_number'],
+                    )
+
                     if user.passport is None:
                         user_passport = data['passport']
                         user.passport = user_passport
                         user.save()
 
+                except ObjectDoesNotExist:
+                    pass
+
                 return HttpResponse(checkin)
+
             else:
-                return HttpResponse('error')
+                return HttpResponse('No')
 
         else:
-            return HttpResponse('No')
+            return HttpResponse('Date Error')
