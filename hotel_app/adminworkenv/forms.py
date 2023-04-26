@@ -21,3 +21,18 @@ class CheckInForm(forms.ModelForm):
         fields = '__all__'
         required_fields = fields
 
+
+class GetDataForm(forms.Form):
+    check_in_down = forms.DateField(
+        widget=forms.DateInput(
+            attrs={'type': 'date'}
+        ),
+        required=True
+    )
+    check_in_up = forms.DateField(
+        widget=forms.DateTimeInput(
+            attrs={'type': 'date'}
+        ),
+        required=True
+    )
+

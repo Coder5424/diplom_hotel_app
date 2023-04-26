@@ -14,15 +14,33 @@
 
 <body>
 
-      <form class="example" action="{% url 'adminworkenv:booking_list' %}" style="margin:20px auto auto auto;max-width:300px">
-        <input type="text" placeholder="Search.." name="search_booking">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
+
+        <div class="room" style="margin:60px auto auto auto;max-width:300px">
+          <a href="{% url 'adminworkenv:search_bookings_view' %}">
+
+
+          <h2>Есть бронь<h2>
+          </a>
+        </div>
 	  
-	        <div class="room" style="margin:60px auto auto auto;max-width:300px">
+	      <div class="room" style="margin:60px auto auto auto;max-width:300px">
           <a href="{% url 'hotel:BookingView' %}">
 
           <h2>Нет брони<h2>
+          </a>
+        </div>
+
+        <div class="room" style="margin:60px auto auto auto;max-width:300px">
+          <a href="{% url 'adminworkenv:GetDataView' %}">
+
+          <h2>Получить данные<h2>
+          </a>
+        </div>
+
+        <div class="room" style="margin:60px auto auto auto;max-width:300px">
+          <a href="{% url 'adminworkenv:get_excel_view' %}">
+
+          <h2>Получить эксель<h2>
           </a>
         </div>
 

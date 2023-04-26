@@ -22,9 +22,12 @@
         {% endfor %}
       </div>
 
+      {% if user.is_authenticated and user.is_staff %}
       <div class="home">
             <a href="{% url 'adminworkenv:admin_page_view' %}"><i class="fas fa-arrow-alt-circle-left">ADMIN</i></a>
       </div>
+      {% endif %}
+      
 </body>
 
 </html>

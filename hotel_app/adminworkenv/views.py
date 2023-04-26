@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, FormView
-from .forms import CheckInForm
+from .forms import CheckInForm, GetDataForm
 from hotel.models import Booking
 from userlogin.models import User
 from .models import CheckIn
@@ -37,6 +37,18 @@ def admin_page_view(request):
     return render(request, 'adminworkenv/admin_page.html')
 
 
+def search_bookings_view(request):
+    return render(request, 'adminworkenv/search_bookings.html')
+
+
+def get_data_view(request):
+    return render(request, 'adminworkenv/get_data.html')
+
+
+def get_excel_view(request):
+    return render(request, 'adminworkenv/get_excel.html')
+
+
 class CheckInView(FormView):
     form_class = CheckInForm
     template_name = 'adminworkenv/checkin.html'
@@ -51,8 +63,6 @@ class CheckInView(FormView):
         check_out = self.kwargs.get('check_out', None)
 
         booking = Booking.objects.get(
-            firstname=firstname,
-            lastname=lastname,
             email=email,
             phone_number=phone_number,
             room=room,
@@ -78,7 +88,7 @@ class CheckInView(FormView):
                 phone_number=phone_number,
             )
             user_passport = user.passport
-            if user_passport is not None:
+            if user_passport:
                 context['passport'] = user_passport
 
         except ObjectDoesNotExist:
@@ -109,13 +119,11 @@ class CheckInView(FormView):
 
                 try:
                     user = User.objects.get(
-                        firstname=data['firstname'],
-                        lastname=data['lastname'],
                         email=data['email'],
                         phone_number=data['phone_number'],
                     )
 
-                    if user.passport is None:
+                    if not user.passport:
                         user_passport = data['passport']
                         user.passport = user_passport
                         user.save()
@@ -127,6 +135,27 @@ class CheckInView(FormView):
 
             else:
                 return HttpResponse('No')
+
+        else:
+            return HttpResponse('Date Error')
+
+
+class GetDataView(FormView):
+    form_class = GetDataForm
+    template_name = 'adminworkenv/get_data.html'
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+
+        check_in_down = data['check_in_down']
+        check_in_up = data['check_in_up']
+
+        if check_in_down <= check_in_up:
+            checkin_list = CheckIn.objects.filter(check_in__lte=check_in_up, check_in__gte=check_in_down).order_by('check_in')
+
+            context = {'checkin_list': checkin_list}
+
+            return render(self.request, 'adminworkenv/get_data_list.html', context)
 
         else:
             return HttpResponse('Date Error')

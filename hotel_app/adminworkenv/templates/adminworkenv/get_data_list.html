@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking List</title>
+</head>
+
+<body>
+<h2>CheckIns</h2>
+      <!-- Main Content -->
+      <div id="rooms">
+        {% for checkin in checkin_list %}
+        <div class="room">
+          <br />
+          <h2>{{ checkin.firstname }} {{ checkin.lastname }} {{ checkin.email }}<h2>
+          <h2>{{ checkin.room }}<h2>
+          <h2>{{ checkin.check_in }} : {{ checkin.check_out }}<h2>
+          <br />
+
+        </div>
+
+        {% endfor %}
+      </div>
+</body>
+
+</html>

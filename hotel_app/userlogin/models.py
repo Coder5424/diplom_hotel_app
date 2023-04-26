@@ -27,7 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     lastname = models.CharField(max_length=30)
     email = models.EmailField(max_length=254, unique=True)
     phone_number = models.CharField(max_length=20, unique=True)
-    passport = models.CharField(max_length=10, unique=True)
+    passport = models.CharField(max_length=10)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)

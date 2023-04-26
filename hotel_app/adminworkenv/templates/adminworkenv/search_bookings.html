@@ -1,0 +1,22 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'adminworkenv/css/style.css' %}">
+    <title>ADMIN</title>
+</head>
+
+
+<body>
+
+      <form class="example" action="{% url 'adminworkenv:booking_list' %}" style="margin:20px auto auto auto;max-width:300px">
+        <input type="text" placeholder="Search.." name="search_booking">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+
+</body>

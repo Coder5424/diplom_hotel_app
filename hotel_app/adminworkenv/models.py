@@ -13,5 +13,5 @@ class CheckIn(models.Model):
     check_out = models.DateField()
 
     def __str__(self):
-        return f'{self.room}'
+        return f'{self.room} - {self.email} '
 

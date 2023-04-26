@@ -1,0 +1,34 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'adminworkenv/css/style.css' %}">
+    <title>ADMIN</title>
+</head>
+
+
+<body>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="input-wrapper">
+        <label for="check_in"><b>Check In Down</b></label>
+            {{ form.check_in_down }}
+        </div>
+
+        <div class="input-wrapper">
+        <label for="check_in"><b>Check In Up</b></label>
+            {{ form.check_in_up }}
+        </div>
+
+        <button type="submit">Get Data</button>
+
+    </form>
+
+</body>
