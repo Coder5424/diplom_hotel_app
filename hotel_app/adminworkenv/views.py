@@ -1,3 +1,6 @@
+import csv
+import datetime
+import xlwt
 from django.contrib.auth import login, authenticate, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
@@ -159,3 +162,50 @@ class GetDataView(FormView):
 
         else:
             return HttpResponse('Date Error')
+
+
+class GetExcelView(FormView):
+    form_class = GetDataForm
+    template_name = 'adminworkenv/get_excel.html'
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+
+        check_in_down = data['check_in_down']
+        check_in_up = data['check_in_up']
+
+        if check_in_down <= check_in_up:
+            response = HttpResponse(content_type='application/ms-excel')
+            response['Content-Disposition'] = "attachment; filename=export_" + \
+                                              str(datetime.datetime.now()) + ".xls"
+
+            wb = xlwt.Workbook(encoding='utf-8')
+            ws = wb.add_sheet('CheckIn Data')
+
+            row_num = 0
+
+            font_style = xlwt.XFStyle()
+            font_style.font.bold = True
+
+            columns = ['First Name', 'Last Name', 'Email Address', ]
+
+            for col_num in range(len(columns)):
+                ws.write(row_num, col_num, columns[col_num], font_style)
+
+            font_style = xlwt.XFStyle()
+
+            checkin_list = CheckIn.objects.filter(check_in__lte=check_in_up, check_in__gte=check_in_down).order_by(
+                'check_in').values_list('firstname', 'lastname', 'email')
+
+            for checkin in checkin_list:
+                row_num += 1
+                for col_num in range(len(checkin)):
+                    ws.write(row_num, col_num, checkin[col_num], font_style)
+
+            wb.save(response)
+
+            return response
+
+        else:
+            return HttpResponse('Date Error')
+

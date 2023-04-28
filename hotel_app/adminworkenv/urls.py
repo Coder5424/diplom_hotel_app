@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CheckInView, GetDataView
+from .views import CheckInView, GetDataView, GetExcelView
 from . import views
 
 urlpatterns = [
@@ -12,6 +12,6 @@ urlpatterns = [
     path('admin_page/', views.admin_page_view, name='admin_page_view'),
     path('search_bookings/', views.search_bookings_view, name='search_bookings_view'),
     path('get_data/', GetDataView.as_view(), name='GetDataView'),
-    path('get_excel/', views.get_excel_view, name='get_excel_view'),
+    path('get_excel/', GetExcelView.as_view(), name='GetExcelView'),
 
 ]
