@@ -9,7 +9,8 @@ class Room(models.Model):
         ('Superior', 'Superior'),
         ('Deluxe', 'Deluxe'),
     )
-    type = models.CharField(max_length=8, choices=room_types)
+    type = models.CharField(max_length=15, choices=room_types)
+    img = models.ImageField(upload_to='hotel/images/')
     number = models.IntegerField(primary_key=True, unique=True)
     beds = models.IntegerField()
     capacity = models.IntegerField()

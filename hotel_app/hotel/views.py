@@ -12,8 +12,9 @@ def room_list_view(request):
     room_types = dict(room.room_types)
     room_list = []
     for room_type in room_types:
+        room = Room.objects.filter(type=room_type).first()
         room_url = reverse('hotel:RoomDetailView', kwargs={'type': room_type})
-        room_list.append((room_type, room_url))
+        room_list.append((room, room_type, room_url))
 
     context = {'room_list': room_list}
 

@@ -316,55 +316,48 @@ body {
     }
 }
 
-.profile__tab-start {
+.profile-edit__form {
     display: flex;
     flex-direction: column;
-    flex-basis: 50%;
     gap: 20px;
+    width: 50%;
+
 }
 
-.profile__tab-end {
+@media screen and (max-width: 666px) {
+    .profile-edit__form {
+        width: 100%;
+    }
+}
+
+.profile-edit__input {}
+
+.profile-input {}
+
+.profile-input__name {
+    display: block;
+    font-weight: 500;
+    padding: 0px 10px;
+    margin-bottom: 4px;
+}
+
+.profile-input__input {
+    background: #EDEDF2;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 6px 12px;
+    height: 40px;
     width: 100%;
 }
 
-.profile__field {}
-
-.field {
-    display: flex;
-    gap: 20px;
+.profile-input__input::placeholder {
+    color: #D9D9D9;
 
 }
-
-.field__name {
-    font-weight: 600;
-}
-
-.field__value {}
 
 .profile__btn {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-
-
-.profile__image {
-    position: relative;
-    width: 175px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-@media screen and (max-width: 490px) {
-    .profile__image {
-        width: 100px;
-    }
-}
-
-@media screen and (max-width: 425px) {
-    .profile__image {
-        width: 175px;
-    }
 }

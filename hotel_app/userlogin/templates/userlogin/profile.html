@@ -6,8 +6,8 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Главная</title>
-  <link href="{% static 'hotel/css/style.css' %}" rel="stylesheet" />
+  <title>Мои данные</title>
+  <link href="{% static 'userlogin/css/style.css' %}" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -52,7 +52,6 @@
           </li>
           {% endif %}
 
-
           {% if user.is_authenticated %}
           <li class="header__end-item">
             <a class="header__profile" href="{% url 'userlogin:profile' %}">
@@ -70,56 +69,67 @@
     </div>
   </header>
   <main class="main">
-    <section class="main__preview">
-      <h1 class="preview__title">Modern<br />Hotel</h1>
-    </section>
-    <section class="section rooms">
+    <section class="section profile personal">
       <div class="container">
-        <h2 class="section__title">Номера</h2>
-        <ul class="rooms__list">
-        {% for room, room_type, room_url in room_list %}
-          <li class="rooms__list-item">
-            <a class="room" href="{{ room_url }}">
-              <span class="room__title" href="{{ room_url }}">
-
-                {% if room_type == 'Standard' %}
-                  Стандарт
-                {% elif room_type == 'Superior' %}
-                  Стандарт+
-                {% elif room_type == 'Deluxe' %}
-                  Люкс
-                {% endif %}
-                
+        <nav class="profile__navigate">
+          <ul class="profile__navigate-tabs">
+            <li class="profile__navigate-tab">
+              <a class="profile__navigate-link current" href="#">Мои данные</a>
+            </li>
+            <li class="profile__navigate-tab">
+              <a class="profile__navigate-link" href="#">Бронирования</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="profile__tab-expanded">
+          <div class="profile__tab-start">
+            <div class="profile__field field">
+              <span class="field__name">
+                Фамилия
               </span>
-              <div class="room__image-wrapper">
-                <ul class="room__info info">
-                  <li class="info_item">
-                    <div class="info_text">2</div>
-                    <div class="info_icon">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <title>места</title>
-                        <use href="#icon-persons" />
-                      </svg>
-                    </div>
-                  </li>
-                  <li class="info_item">
-                    <div class="info_text">2</div>
-                    <div class="info_icon">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <title>кровати</title>
-                        <use href="#icon-bed" />
-                      </svg>
-                    </div>
-                  </li>
-                </ul>
-                <img class="room__image" src="{{ room.img.url }}" alt="" />
-              </div>
-            </a>
-          </li>
-        {% endfor %}
-        </ul>
-        <button class="rooms__btn btn">Забронировать</button>
+              <span class="field__value">
+                {{ user.firstname }}
+              </span>
+            </div>
+            <div class="profile__field field">
+              <span class="field__name">
+                Имя
+              </span>
+              <span class="field__value">
+                {{ user.lastname }}
+              </span>
+            </div>
+            <div class="profile__field field">
+              <span class="field__name">
+                Почта
+              </span>
+              <span class="field__value">
+                {{ user.email }}
+              </span>
+            </div>
+            <div class="profile__field field">
+              <span class="field__name">
+                Номер телефона
+              </span>
+              <span class="field__value">
+                {{ user.phone_number }}
+              </span>
+            </div>
+            <div class="profile__btn">
+              <a class="btn btn_inverse" href="{% url 'userlogin:update_profile' %}">
+                Изменить данные
+              </a>
+              <a class="btn btn_danger" href="{% url 'userlogin:logout' %}">
+                Выйти
+              </a>
+            </div>
+          </div>
+          <div class="profile__tab-end">
+            <img class="profile__image" src="../../../images/profile.svg" alt="">
+          </div>
+        </div>
       </div>
+
     </section>
   </main>
   <footer class="footer">
@@ -136,16 +146,7 @@
     </div>
   </footer>
   <svg style="display: none">
-    <symbol id="icon-persons" width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <path
-        d="M0.805664 16.6667V14.5833C0.805664 14.1019 0.929504 13.6632 1.17718 13.2674C1.42487 12.8715 1.76398 12.5741 2.19454 12.375C3.15751 11.9352 4.05798 11.6146 4.89594 11.4132C5.73389 11.2118 6.59269 11.1111 7.47233 11.1111C8.35196 11.1111 9.20844 11.2118 10.0418 11.4132C10.8751 11.6146 11.7732 11.9352 12.7362 12.375C13.1668 12.5741 13.5082 12.8715 13.7605 13.2674C14.0128 13.6632 14.139 14.1019 14.139 14.5833V16.6667H0.805664ZM15.5279 16.6667V14.5278C15.5279 13.7408 15.323 13.066 14.9133 12.5035C14.5036 11.941 13.9538 11.4769 13.264 11.1111C14.139 11.213 14.9631 11.3692 15.7362 11.5799C16.5094 11.7905 17.1621 12.037 17.6945 12.3195C18.1668 12.588 18.5348 12.9086 18.7987 13.2812C19.0626 13.6539 19.1945 14.0695 19.1945 14.5278V16.6667H15.5279ZM7.47233 9.9861C6.55566 9.9861 5.79409 9.68287 5.1876 9.0764C4.58112 8.46991 4.27787 7.70833 4.27787 6.79167C4.27787 5.875 4.58112 5.11343 5.1876 4.50696C5.79409 3.90047 6.55566 3.59723 7.47233 3.59723C8.389 3.59723 9.15057 3.90047 9.75704 4.50696C10.3635 5.11343 10.6668 5.875 10.6668 6.79167C10.6668 7.70833 10.3635 8.46991 9.75704 9.0764C9.15057 9.68287 8.389 9.9861 7.47233 9.9861ZM15.2501 6.79167C15.2501 7.70833 14.9468 8.46991 14.3404 9.0764C13.7339 9.68287 12.9723 9.9861 12.0556 9.9861C11.9029 9.9861 11.7246 9.97338 11.5209 9.94792C11.3172 9.92246 11.139 9.88426 10.9862 9.83333C11.3334 9.45371 11.5985 9.00463 11.7813 8.4861C11.9642 7.96759 12.0556 7.40278 12.0556 6.79167C12.0556 6.18056 11.9642 5.625 11.7813 5.125C11.5985 4.625 11.3334 4.16667 10.9862 3.75C11.1529 3.69908 11.3311 3.66089 11.5209 3.63542C11.7107 3.60996 11.889 3.59723 12.0556 3.59723C12.9723 3.59723 13.7339 3.90047 14.3404 4.50696C14.9468 5.11343 15.2501 5.875 15.2501 6.79167ZM2.19454 15.2778H12.7501V14.5833C12.7501 14.3843 12.6934 14.1945 12.58 14.0139C12.4665 13.8333 12.3242 13.7037 12.1529 13.625C11.2362 13.2037 10.4237 12.9109 9.71537 12.7465C9.00704 12.5822 8.25936 12.5 7.47233 12.5C6.68529 12.5 5.93529 12.5822 5.22233 12.7465C4.50936 12.9109 3.69454 13.2037 2.77787 13.625C2.60658 13.7037 2.46653 13.8333 2.35773 14.0139C2.24893 14.1945 2.19454 14.3843 2.19454 14.5833V15.2778ZM7.47233 8.59723C7.98622 8.59723 8.41562 8.42478 8.76052 8.07988C9.10542 7.73496 9.27787 7.30556 9.27787 6.79167C9.27787 6.27778 9.10542 5.84838 8.76052 5.50348C8.41562 5.15856 7.98622 4.9861 7.47233 4.9861C6.95844 4.9861 6.52904 5.15856 6.18412 5.50348C5.83922 5.84838 5.66677 6.27778 5.66677 6.79167C5.66677 7.30556 5.83922 7.73496 6.18412 8.07988C6.52904 8.42478 6.95844 8.59723 7.47233 8.59723Z"
-        fill="white" />
-    </symbol>
-    <symbol id="icon-bed" width="20" height="20" viewBox="0 0 20 20" fill="none">
-      <path
-        d="M1.6665 15.8334V10.625C1.6665 10.2685 1.73826 9.93751 1.88177 9.63196C2.0253 9.3264 2.23132 9.06946 2.49984 8.86112V6.47223C2.49984 5.82409 2.72206 5.2778 3.1665 4.83335C3.61095 4.38891 4.15724 4.16669 4.80538 4.16669H8.4165C8.72669 4.16669 9.01604 4.23266 9.28457 4.3646C9.55308 4.49655 9.7915 4.67594 9.99984 4.90279C10.2082 4.67594 10.4443 4.49655 10.7082 4.3646C10.9721 4.23266 11.2591 4.16669 11.5693 4.16669H15.1804C15.8285 4.16669 16.3772 4.38891 16.8262 4.83335C17.2753 5.2778 17.4998 5.82409 17.4998 6.47223V8.86112C17.7684 9.06946 17.9744 9.3264 18.1179 9.63196C18.2614 9.93751 18.3332 10.2685 18.3332 10.625V15.8334H16.9443V14.1667H3.05538V15.8334H1.6665ZM10.6943 8.40279H16.111V6.47223C16.111 6.20834 16.0218 5.98959 15.8436 5.81598C15.6654 5.64237 15.4443 5.55556 15.1804 5.55556H11.5276C11.2915 5.55556 11.0936 5.647 10.9339 5.82987C10.7741 6.01275 10.6943 6.22687 10.6943 6.47223V8.40279ZM3.88871 8.40279H9.3054V6.47223C9.3054 6.22687 9.22554 6.01275 9.06582 5.82987C8.9061 5.647 8.70818 5.55556 8.47207 5.55556H4.80538C4.55075 5.55556 4.33432 5.64469 4.15609 5.82294C3.97784 6.00117 3.88871 6.2176 3.88871 6.47223V8.40279ZM3.05538 12.7778H16.9443V10.625C16.9443 10.3889 16.8644 10.191 16.7047 10.0313C16.545 9.87155 16.3471 9.79169 16.111 9.79169H3.88871C3.6526 9.79169 3.45468 9.87155 3.29496 10.0313C3.13524 10.191 3.05538 10.3889 3.05538 10.625V12.7778Z"
-        fill="white" />
-    </symbol>
+    
   </svg>
 </body>
 
