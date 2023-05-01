@@ -1,7 +1,6 @@
 import csv
 import datetime
 import xlwt
-from django.contrib.auth import login, authenticate, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -42,14 +41,6 @@ def admin_page_view(request):
 
 def search_bookings_view(request):
     return render(request, 'adminworkenv/search_bookings.html')
-
-
-def get_data_view(request):
-    return render(request, 'adminworkenv/get_data.html')
-
-
-def get_excel_view(request):
-    return render(request, 'adminworkenv/get_excel.html')
 
 
 class CheckInView(FormView):

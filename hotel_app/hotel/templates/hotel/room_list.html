@@ -89,12 +89,12 @@
                 {% elif room_type == 'Deluxe' %}
                   Люкс
                 {% endif %}
-                
+
               </span>
               <div class="room__image-wrapper">
                 <ul class="room__info info">
                   <li class="info_item">
-                    <div class="info_text">2</div>
+                    <div class="info_text">{{ room.number }}</div>
                     <div class="info_icon">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <title>места</title>
@@ -103,7 +103,7 @@
                     </div>
                   </li>
                   <li class="info_item">
-                    <div class="info_text">2</div>
+                    <div class="info_text">{{ room.beds }}</div>
                     <div class="info_icon">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <title>кровати</title>
@@ -118,7 +118,11 @@
           </li>
         {% endfor %}
         </ul>
-        <button class="rooms__btn btn">Забронировать</button>
+        <a href="{% url 'hotel:BookingView' %}">
+        <button class="rooms__btn btn">
+        Забронировать
+      </button>
+      </a>
       </div>
     </section>
   </main>

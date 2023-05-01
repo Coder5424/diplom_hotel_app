@@ -4,9 +4,13 @@
 
 :root {
     --black-clr: hsla(252, 6%, 12%, 1);
+    --bg-clr-primary: #EDFAF1;
     --text-primary-clr: var(--black-clr);
+    --text-secondary-clr: #3B3A41;
     --font-fallback: BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     --font-body: "Roboto", var(--font-fallback);
+    --element-enactive-clr: #EDEDF2;
+
 }
 
 body {
@@ -16,7 +20,7 @@ body {
     color: var(--text-primary-clr);
     display: flex;
     flex-direction: column;
-
+    background-color: var(--bg-clr-primary);
 }
 
 .container {
@@ -26,7 +30,7 @@ body {
 }
 
 .btn {
-    display: block;
+    display: inline-block;
     padding: 10px 8px;
     text-decoration: none;
     cursor: pointer;
@@ -43,6 +47,13 @@ body {
     line-height: 19px;
 }
 
+.btn_inverse {
+    border: none;
+    color: #fff;
+    background: var(--black-clr);
+
+}
+
 @media screen and (max-width:340px) {
     .btn {
         padding: 7px 7px;
@@ -52,6 +63,31 @@ body {
 
 }
 
+
+.info {
+    padding: 0;
+    list-style: none;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0px 8px;
+    padding: 0px 6px;
+    font-size: 16px;
+    line-height: 19px;
+    margin: 0;
+}
+
+.info_item {
+    display: flex;
+    align-items: center;
+    padding: 2px 0px;
+    gap: 4px;
+}
+
+.info_text {}
+
+.info_icon {
+    display: flex;
+}
 
 .header {}
 
@@ -69,9 +105,10 @@ body {
 @media screen and (max-width:620px) {
 
     .header__nav {
-        padding: 0;
+        margin: 0 -10px;
     }
 }
+
 
 .header__start {
     padding: 0;
@@ -178,45 +215,6 @@ body {
     min-height: calc(100vh - 60px);
 }
 
-.main__preview {
-    height: 375px;
-
-    background-image: url(../images/preview-bg.jpg);
-    position: relative;
-    align-items: center;
-}
-
-
-.main__preview::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(2px);
-    height: 100%;
-    width: 100%;
-}
-
-
-.preview__title {
-    position: absolute;
-    margin: 0;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    z-index: 1;
-    color: #fff;
-    font-family: 'Oswald', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 53px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
 
 .section {
     padding: 50px 0 30px 0;
@@ -232,107 +230,139 @@ body {
     margin: 0;
 }
 
-.rooms {}
-
-
-.rooms__list {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(150px, 235px));
-    padding: 0;
-    list-style: none;
-    gap: 20px;
+.room-page {
+    padding: 8px 0 30px;
 }
 
-@media screen and (max-width: 700px) {
-    .rooms__list {
-        grid-template-columns: repeat(3, minmax(150px, 235px));
-    }
-}
-
-@media screen and (max-width: 570px) {
-    .rooms__list {
-        grid-template-columns: repeat(2, minmax(150px, 235px));
-    }
-}
-
-@media screen and (max-width: 365px) {
-    .rooms__list {
-        grid-template-columns: minmax(150px, 100%);
-    }
-}
-
-.rooms__list-item {}
-
-.room {
-    position: relative;
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 6px;
-    color: inherit;
-    text-decoration: none;
-}
-
-.room__title {
-    padding: 0px 4px;
-    font-size: 16px;
-    line-height: 19px;
-    font-weight: 400;
-
-}
+.personal {}
 
 
-.room__image-wrapper {
-    position: relative;
-
-}
-.info {
-    padding: 0;
-    list-style: none;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 0px 8px;
-    padding: 0px 6px;
-    font-size: 16px;
-    line-height: 19px;
-    margin: 0;
-}
-
-.info_item {
-    display: flex;
-    align-items: center;
-    padding: 2px 0px;
-    gap: 4px;
-}
-
-.info_text {
-    color: #fff;
-}
-
-.info_icon {
-    display: flex;
-}
-
-.room__info {
-    position: absolute;
-    right: 0;
-    top: 0;
-
-}
-
-
-.room__image {
-    display: block;
+.room-page__inner {
+    padding: 40px 50px;
+    background: #FFFFFF;
     border-radius: 8px;
-    width: 100%;
+    gap: 10px;
 
 }
 
-.rooms__btn {
-    max-width: 275px;
+@media screen and (max-width: 550px) {
+    .room-page__inner {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .room-page__inner {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+}
+
+.room-page__items {
+    display: grid;
+    grid-template-columns: 1fr minmax(300px, 1fr);
+    gap: 40px;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 840px) {
+    .room-page__items {
+        grid-template-columns: auto;
+        gap: 20px;
+    }
+}
+
+.room-page__title {
+    grid-column: 1 / -1;
+}
+
+@media screen and (max-width: 840px) {
+    .room-page__title {
+        grid-row: 2 / 3;
+        padding: 0 20px;
+    }
+}
+
+.room-page__slider {
     width: 100%;
-    margin: 0 auto;
-    color: #fff;
-    background: var(--black-clr);
+    height: fit-content;
+    align-self: center;
+}
+
+.slider {
+    position: relative;
+}
+
+.swiper {}
+
+
+
+.slider__wrapper {}
+
+
+.slider__slide {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.slide__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1;
+    border-radius: 8px;
+}
+
+.slider__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.slider__button svg path {
+    fill: var(--black-clr);
+    transition: fill 0.3s ease;
+
+}
+
+.slider__button.swiper-button-disabled {
+    cursor: auto;
+}
+
+.slider__button.swiper-button-disabled svg path {
+    fill: var(--element-enactive-clr);
+}
+
+.slider__button_next {
+    right: 0;
+}
+
+.slider__button_prev {
+    left: 0;
 }
 
 
+.room-page__end {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-page__text {
+    min-width: 300px;
+    padding: 0 20px;
+}
+
+.room-page__text ul {
+    padding: 0;
+}
+
+.room-page__btn-wrapper {
+    text-align: center;
+    margin-top: auto;
+}

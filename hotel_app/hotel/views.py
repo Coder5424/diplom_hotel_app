@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from django.urls import reverse
 from django.views.generic import ListView, FormView, View
@@ -21,15 +23,34 @@ def room_list_view(request):
     return render(request, 'hotel/room_list.html', context)
 
 
+def error_booking(request):
+    return render(request, 'hotel/error_booking.html')
+
+
+def error_date(request):
+    return render(request, 'hotel/error_date.html')
+
+
+@login_required
+def booking_list_view(request):
+    booking_list = Booking.objects.filter(
+        email=request.user.email,
+        phone_number=request.user.phone_number,
+        check_in__gte=date.today()
+    ).order_by('check_in')
+
+    context = {'booking_list': booking_list}
+
+    return render(request, 'hotel/booking_list.html', context)
+
+
 class RoomDetailView(View):
     def get(self, request, *args, **kwargs):
         room_type = self.kwargs.get('type', None)
-        room = Room.objects.filter(type=room_type)
-        if room:
-            context = {'room_type': room_type}
-            return render(request, 'hotel/room_detail_view.html', context)
-        else:
-            return HttpResponse('NO')
+        room = Room.objects.filter(type=room_type).first()
+
+        context = {'room_type': room_type, 'room': room}
+        return render(request, 'hotel/room_detail_view.html', context)
 
 
 class BookingView(FormView):
@@ -65,8 +86,8 @@ class BookingView(FormView):
                 )
                 booking.save()
 
-                return HttpResponse(booking)
+                return HttpResponseRedirect(reverse('hotel:booking_list_view'))
             else:
-                return HttpResponse('All of this type rooms are booked')
+                return HttpResponseRedirect(reverse('hotel:error_booking'))
         else:
-            return HttpResponse('Date Error')
+            return HttpResponseRedirect(reverse('hotel:error_date'))

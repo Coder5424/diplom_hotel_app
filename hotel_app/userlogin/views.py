@@ -16,6 +16,14 @@ def profile(request):
     return render(request, 'userlogin/profile.html', context)
 
 
+def error_login(request):
+    return render(request, 'userlogin/error_login.html')
+
+
+def error_reg(request):
+    return render(request, 'userlogin/error_reg.html')
+
+
 @login_required
 def logout_user(request):
     success_url = reverse_lazy('hotel:room_list_view')
@@ -58,7 +66,7 @@ class RegisterView(FormView):
             login(self.request, user)
             return HttpResponseRedirect(self.success_url)
         else:
-            return HttpResponse('No')
+            return HttpResponseRedirect(reverse('userlogin:error_reg'))
 
 
 class LoginView(FormView):
@@ -75,7 +83,7 @@ class LoginView(FormView):
             login(self.request, user)
             return HttpResponseRedirect(self.success_url)
         else:
-            return HttpResponse('NOT OKKKK')
+            return HttpResponseRedirect(reverse('userlogin:error_login'))
 
 
 class UpdateView(FormView):

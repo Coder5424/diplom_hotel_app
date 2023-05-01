@@ -4,9 +4,13 @@
 
 :root {
     --black-clr: hsla(252, 6%, 12%, 1);
+    --bg-clr-primary: #EDFAF1;
     --text-primary-clr: var(--black-clr);
+    --text-secondary-clr: #3B3A41;
     --font-fallback: BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     --font-body: "Roboto", var(--font-fallback);
+    --element-enactive-clr: #EDEDF2;
+
 }
 
 body {
@@ -16,7 +20,7 @@ body {
     color: var(--text-primary-clr);
     display: flex;
     flex-direction: column;
-
+    background-color: var(--bg-clr-primary);
 }
 
 .container {
@@ -26,7 +30,7 @@ body {
 }
 
 .btn {
-    display: block;
+    display: inline-block;
     padding: 10px 8px;
     text-decoration: none;
     cursor: pointer;
@@ -43,6 +47,20 @@ body {
     line-height: 19px;
 }
 
+.btn_inverse {
+    border: none;
+    color: #fff;
+    background: var(--black-clr);
+
+}
+
+.btn_danger {
+    background: #F85149;
+    border: 1px solid #8A0B05;
+    color: #fff;
+
+}
+
 @media screen and (max-width:340px) {
     .btn {
         padding: 7px 7px;
@@ -51,7 +69,6 @@ body {
     }
 
 }
-
 
 .header {}
 
@@ -69,9 +86,10 @@ body {
 @media screen and (max-width:620px) {
 
     .header__nav {
-        padding: 0;
+        margin: 0 -10px;
     }
 }
+
 
 .header__start {
     padding: 0;
@@ -178,45 +196,6 @@ body {
     min-height: calc(100vh - 60px);
 }
 
-.main__preview {
-    height: 375px;
-
-    background-image: url(../images/preview-bg.jpg);
-    position: relative;
-    align-items: center;
-}
-
-
-.main__preview::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(2px);
-    height: 100%;
-    width: 100%;
-}
-
-
-.preview__title {
-    position: absolute;
-    margin: 0;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    z-index: 1;
-    color: #fff;
-    font-family: 'Oswald', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 53px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
 
 .section {
     padding: 50px 0 30px 0;
@@ -232,107 +211,166 @@ body {
     margin: 0;
 }
 
-.rooms {}
-
-
-.rooms__list {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(150px, 235px));
-    padding: 0;
-    list-style: none;
-    gap: 20px;
+.profile {
+    padding: 8px 0 30px;
 }
 
-@media screen and (max-width: 700px) {
-    .rooms__list {
-        grid-template-columns: repeat(3, minmax(150px, 235px));
-    }
-}
+.personal {}
 
-@media screen and (max-width: 570px) {
-    .rooms__list {
-        grid-template-columns: repeat(2, minmax(150px, 235px));
-    }
-}
+.profile__navigate {}
 
-@media screen and (max-width: 365px) {
-    .rooms__list {
-        grid-template-columns: minmax(150px, 100%);
-    }
-}
-
-.rooms__list-item {}
-
-.room {
-    position: relative;
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 6px;
-    color: inherit;
-    text-decoration: none;
-}
-
-.room__title {
-    padding: 0px 4px;
-    font-size: 16px;
-    line-height: 19px;
-    font-weight: 400;
-
-}
-
-
-.room__image-wrapper {
-    position: relative;
-
-}
-.info {
-    padding: 0;
-    list-style: none;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 0px 8px;
-    padding: 0px 6px;
-    font-size: 16px;
-    line-height: 19px;
+.profile__navigate-tabs {
+    box-sizing: content-box;
     margin: 0;
-}
-
-.info_item {
+    padding: 0 18px;
+    list-style: none;
+    border-radius: 10px;
     display: flex;
-    align-items: center;
-    padding: 2px 0px;
-    gap: 4px;
+    gap: 0;
+    overflow: scroll;
 }
 
-.info_text {
-    color: #fff;
+.profile__navigate-tabs::-webkit-scrollbar {
+    display: none;
 }
 
-.info_icon {
-    display: flex;
-}
+.profile__navigate-tab {}
 
-.room__info {
-    position: absolute;
-    right: 0;
-    top: 0;
-
-}
-
-
-.room__image {
+.profile__navigate-link {
     display: block;
+    margin: 0 11px;
+    padding: 8px 2px;
+    background-color: var(--element-enactive-clr);
+    text-decoration: none;
+    color: var(--text-secondary-clr);
+    position: relative;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+}
+
+@media screen and (max-width: 360px) {
+    .profile__navigate-link {
+        font-size: 12px;
+    }
+}
+
+.profile__navigate-link::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 10px 10px 0px 0px;
+    left: -16px;
+    top: 0;
+    display: block;
+    background-color: inherit;
+    height: 100%;
+    width: 30px;
+    transform: skewX(-20deg);
+}
+
+.profile__navigate-link::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 10px 10px 0px 0px;
+    right: -16px;
+    top: 0;
+    display: block;
+    background-color: inherit;
+    height: 100%;
+    width: 30px;
+    transform: skewX(20deg);
+}
+
+.profile__navigate-link.current {
+    background-color: #fff;
+    color: var(--text-primary-clr);
+    z-index: 1;
+
+
+}
+
+
+
+
+.profile__tab-expanded {
+    padding: 40px 50px;
+    display: flex;
+    background: #FFFFFF;
     border-radius: 8px;
+    gap: 10px;
+
+}
+
+@media screen and (max-width: 550px) {
+    .profile__tab-expanded {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .profile__tab-expanded {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+}
+
+.profile-register__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
 
 }
 
-.rooms__btn {
-    max-width: 275px;
+@media screen and (max-width: 666px) {
+    .profile-register__form {
+        width: 100%;
+    }
+}
+
+.profile-register__input {}
+
+.profile-input {}
+
+.profile-input__name {
+    display: block;
+    font-weight: 500;
+    padding: 0px 10px;
+    margin-bottom: 4px;
+}
+
+.profile-input__input {
+    background: #EDEDF2;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 6px 12px;
+    height: 40px;
     width: 100%;
+}
+
+.profile-input__input::placeholder {
+    color: #D9D9D9;
+
+}
+
+.profile__btn {
+    text-align: center;
+}
+
+.profile-register__tab-expanded {
+    width: 50%;
+    min-width: 360px;
     margin: 0 auto;
-    color: #fff;
-    background: var(--black-clr);
 }
 
-
+@media screen and (max-width: 450px) {
+    .profile-register__tab-expanded {
+        width: 100%;
+        min-width: auto;
+    }
+}

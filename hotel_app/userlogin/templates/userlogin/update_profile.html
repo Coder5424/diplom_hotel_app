@@ -75,10 +75,10 @@
         <nav class="profile__navigate">
           <ul class="profile__navigate-tabs">
             <li class="profile__navigate-tab">
-              <a class="profile__navigate-link current" href="#">Мои данные</a>
+              <a class="profile__navigate-link current" href="{% url 'userlogin:profile' %}">Мои данные</a>
             </li>
             <li class="profile__navigate-tab">
-              <a class="profile__navigate-link" href="#">Бронирования</a>
+              <a class="profile__navigate-link" href="{% url 'hotel:booking_list_view' %}">Бронирования</a>
             </li>
           </ul>
         </nav>

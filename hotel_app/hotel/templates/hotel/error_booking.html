@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ошибка</title>
+    <link href="{% static 'hotel/css/style_error.css' %}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Roboto:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <main class="main">
+        <section class="section error-page">
+            <div class="container">
+                <div class="error-page__inner">
+                    <div class="error-page__image-wrapper">
+
+                        <svg class="error-page__image" width="120" height="121" viewBox="0 0 120 121" fill="none">
+                            <path
+                                d="M98.9999 110.125L34.875 46.125L20.75 60.25L42.75 82.25C43.4166 82.9166 43.7708 83.7708 43.8124 84.8124C43.8541 85.8541 43.5 86.7499 42.75 87.4999C42 88.2499 41.1041 88.6249 40.0625 88.6249C39.0208 88.6249 38.125 88.2499 37.375 87.4999L12.625 62.875C11.875 62.125 11.5 61.25 11.5 60.25C11.5 59.25 11.875 58.375 12.625 57.625L29.5 40.75L10.25 21.5C9.58333 20.8333 9.25 19.9792 9.25 18.9375C9.25 17.8958 9.625 17 10.375 16.25C11.125 15.5 12.0208 15.125 13.0625 15.125C14.1042 15.125 15 15.5 15.75 16.25L104.375 104.875C105.042 105.542 105.396 106.396 105.437 107.437C105.479 108.479 105.125 109.375 104.375 110.125C103.625 110.875 102.729 111.25 101.687 111.25C100.646 111.25 99.7499 110.875 98.9999 110.125ZM90.2499 80L84.8749 74.625L99.2499 60.25L77.2499 38.25C76.5832 37.5833 76.2499 36.7292 76.2499 35.6875C76.2499 34.6458 76.6249 33.75 77.3749 33C78.1249 32.25 79.0207 31.875 80.0624 31.875C81.1041 31.875 81.9999 32.25 82.7499 33L107.375 57.625C108.125 58.375 108.5 59.25 108.5 60.25C108.5 61.25 108.125 62.125 107.375 62.875L90.2499 80Z"
+                                fill="#E81B11" />
+                        </svg>
+                    </div>
+
+                    <h1 class="error-page__title">
+                        403 Forbidden <br> Доступ запрещен
+                    </h1>
+                    <p class="error-page__text">
+                        Все номера этой категории уже забронированны на ваши даты.
+                    </p>
+
+                    <div class="error-page__btn">
+                        <a href="{% url 'hotel:BookingView' %}">
+                            <button class="btn btn_inverse">
+                                Назад
+                            </button>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+
+</html>
