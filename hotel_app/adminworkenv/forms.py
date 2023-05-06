@@ -3,13 +3,13 @@ from .models import CheckIn
 
 
 class CheckInForm(forms.ModelForm):
-    check_in = forms.DateField(
-        widget=forms.DateInput(
+    check_in = forms.DateTimeField(
+        widget=forms.DateTimeInput(
             attrs={'type': 'date'}
         ),
         required=True
     )
-    check_out = forms.DateField(
+    check_out = forms.DateTimeField(
         widget=forms.DateTimeInput(
             attrs={'type': 'date'}
         ),
@@ -23,13 +23,13 @@ class CheckInForm(forms.ModelForm):
 
 
 class GetDataForm(forms.Form):
-    check_in_down = forms.DateField(
-        widget=forms.DateInput(
+    check_in_down = forms.DateTimeField(
+        widget=forms.DateTimeInput(
             attrs={'type': 'date'}
         ),
         required=True
     )
-    check_in_up = forms.DateField(
+    check_in_up = forms.DateTimeField(
         widget=forms.DateTimeInput(
             attrs={'type': 'date'}
         ),

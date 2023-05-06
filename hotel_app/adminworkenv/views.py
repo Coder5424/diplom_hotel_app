@@ -14,7 +14,7 @@ from .checkin.checkin_avail import check_checkin_avail
 from datetime import date
 
 
-def booking_list_view(request):
+def admin_booking_list(request):
     firstname = request.GET.get('search_booking')
     booking_list = []
     bookings = Booking.objects.filter(firstname__iregex=firstname)
@@ -32,7 +32,7 @@ def booking_list_view(request):
 
     context = {'booking_list': booking_list}
 
-    return render(request, 'adminworkenv/booking_list.html', context)
+    return render(request, 'adminworkenv/admin_booking_list.html', context)
 
 
 def admin_page_view(request):
