@@ -31,5 +31,42 @@ services:
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=changeme
 
+  redis:
+    image: redis:alpine
+
+  celery:
+    build:
+      context: .
+    volumes:
+        - ./hotel_app:/hotel_app
+    command: >
+      celery -A hotel_app worker -l info
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:
+      - redis
+      - db
+      - app
+
+
+  celery-beat:
+    build:
+      context: .
+    volumes:
+        - ./hotel_app:/hotel_app
+    command: celery -A hotel_app beat -l info
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:
+      - redis
+      - db
+      - app
+
 volumes:
   dev-db-data:
