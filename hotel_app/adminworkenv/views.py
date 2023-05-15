@@ -147,7 +147,12 @@ class GetDataView(FormView):
         if check_in_down <= check_in_up:
             checkin_list = CheckIn.objects.filter(check_in__lte=check_in_up, check_in__gte=check_in_down).order_by('check_in')
 
-            context = {'checkin_list': checkin_list}
+            midnight = datetime.time(hour=0, minute=0, second=0)
+
+            context = {
+                'checkin_list': checkin_list,
+                'midnight': midnight
+            }
 
             return render(self.request, 'adminworkenv/get_data_list.html', context)
 

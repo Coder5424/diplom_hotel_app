@@ -17,6 +17,13 @@
           <h2>{{ checkin.firstname }} {{ checkin.lastname }} {{ checkin.email }}<h2>
           <h2>{{ checkin.room }}<h2>
           <h2>{{ checkin.check_in.date }} : {{ checkin.check_out.date }}<h2>
+          {% if checkin.check_in.time != midnight %}
+            <h2>Moved was been<h2>
+          {% else %}
+            <h2>No moved<h2>
+          {% endif %}
+          <br />
+          <br />
           <br />
 
         </div>

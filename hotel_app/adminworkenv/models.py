@@ -11,6 +11,7 @@ class CheckIn(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
+    created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.room} - {self.email} '
