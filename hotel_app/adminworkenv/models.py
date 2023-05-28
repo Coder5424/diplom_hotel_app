@@ -1,5 +1,10 @@
+import datetime
 from django.db import models
 from hotel.models import Room
+
+
+def get_date():
+    return datetime.date.today()
 
 
 class CheckIn(models.Model):
@@ -11,7 +16,7 @@ class CheckIn(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(default=datetime.datetime.now, blank=True)
 
     def __str__(self):
         return f'{self.room} - {self.email} '

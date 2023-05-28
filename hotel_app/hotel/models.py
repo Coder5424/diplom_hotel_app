@@ -8,6 +8,7 @@ class Room(models.Model):
         ('Standard', 'Standard'),
         ('Superior', 'Superior'),
         ('Deluxe', 'Deluxe'),
+        ('Family', 'Family'),
     )
     type = models.CharField(max_length=15, choices=room_types)
     img = models.ImageField(upload_to='hotel/images/')

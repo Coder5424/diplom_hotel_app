@@ -1,5 +1,6 @@
 import csv
 import datetime
+import pytz
 import xlwt
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
@@ -14,10 +15,10 @@ from .checkin.checkin_avail import check_checkin_avail
 from datetime import date
 
 
-def admin_booking_list(request):
+def admin_booking_list_view(request):
     firstname = request.GET.get('search_booking')
     booking_list = []
-    bookings = Booking.objects.filter(firstname__iregex=firstname)
+    bookings = Booking.objects.filter(firstname__iregex=firstname).order_by('-check_in')
     for booking in bookings:
         booking_url = reverse('adminworkenv:CheckInView', kwargs={
             'firstname': booking.firstname,
@@ -56,14 +57,6 @@ class CheckInView(FormView):
         check_in = self.kwargs.get('check_in', None)
         check_out = self.kwargs.get('check_out', None)
 
-        booking = Booking.objects.get(
-            email=email,
-            phone_number=phone_number,
-            room=room,
-            check_in=check_in,
-            check_out=check_out
-        )
-
         context = {
             'firstname': firstname,
             'lastname': lastname,
@@ -96,7 +89,9 @@ class CheckInView(FormView):
         check_in = data['check_in']
         check_out = data['check_out']
 
-        if (check_in <= check_out) and (check_in >= date.today()):
+        now = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0).timestamp()
+
+        if (check_in <= check_out) and (check_in.timestamp() >= now):
             if check_checkin_avail(data['room'], check_in, check_out):
                 checkin = CheckIn.objects.create(
                     firstname=data['firstname'],
@@ -145,7 +140,7 @@ class GetDataView(FormView):
         check_in_up = data['check_in_up']
 
         if check_in_down <= check_in_up:
-            checkin_list = CheckIn.objects.filter(check_in__lte=check_in_up, check_in__gte=check_in_down).order_by('check_in')
+            checkin_list = CheckIn.objects.filter(check_in__lte=check_in_up, check_in__gte=check_in_down).order_by('-check_in')
 
             midnight = datetime.time(hour=0, minute=0, second=0)
 
@@ -183,7 +178,7 @@ class GetExcelView(FormView):
             font_style = xlwt.XFStyle()
             font_style.font.bold = True
 
-            columns = ['First Name', 'Last Name', 'Email Address', ]
+            columns = ['First Name', 'Last Name', 'Email Address', 'Check in', 'Check out']
 
             for col_num in range(len(columns)):
                 ws.write(row_num, col_num, columns[col_num], font_style)
@@ -191,8 +186,9 @@ class GetExcelView(FormView):
             font_style = xlwt.XFStyle()
 
             checkin_list = CheckIn.objects.filter(check_in__lte=check_in_up, check_in__gte=check_in_down).order_by(
-                'check_in').values_list('firstname', 'lastname', 'email')
+                '-check_in').values_list('firstname', 'lastname', 'email', 'check_in', 'check_out')
 
+            checkin_list = [[x.strftime("%Y-%m-%d %H:%M") if isinstance(x, datetime.datetime) else x for x in checkin] for checkin in checkin_list]
             for checkin in checkin_list:
                 row_num += 1
                 for col_num in range(len(checkin)):

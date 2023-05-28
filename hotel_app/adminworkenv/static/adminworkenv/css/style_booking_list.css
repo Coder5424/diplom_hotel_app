@@ -1,0 +1,388 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --black-clr: hsla(252, 6%, 12%, 1);
+    --bg-clr-primary: #EDFAF1;
+    --text-primary-clr: var(--black-clr);
+    --text-secondary-clr: #3B3A41;
+    --font-fallback: BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --font-body: "Roboto", var(--font-fallback);
+    --element-enactive-clr: #EDEDF2;
+
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--text-primary-clr);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-clr-primary);
+}
+
+.container {
+    max-width: 1020px;
+    padding: 0 10px;
+    margin: 0 auto;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 8px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #fff;
+
+    /* Black */
+
+    border: 1px solid var(--text-primary-clr);
+    border-radius: 8px;
+    color: var(--text-primary-clr);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.btn_inverse {
+    border: none;
+    color: #fff;
+    background: var(--black-clr);
+
+}
+
+@media screen and (max-width:340px) {
+    .btn {
+        padding: 7px 7px;
+        line-height: 12px;
+        font-size: 13px;
+    }
+
+}
+
+
+.info {
+    padding: 0;
+    list-style: none;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0px 8px;
+    padding: 0px 6px;
+    font-size: 16px;
+    line-height: 19px;
+    margin: 0;
+}
+
+.info_item {
+    display: flex;
+    align-items: center;
+    padding: 2px 0px;
+    gap: 4px;
+}
+
+.info_text {}
+
+.info_icon {
+    display: flex;
+}
+
+.header {}
+
+.header__nav {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 0 10px;
+    background: #FFFFFF;
+    border-radius: 0px 0px 8px 8px;
+}
+
+@media screen and (max-width:620px) {
+
+    .header__nav {
+        margin: 0 -10px;
+    }
+}
+
+
+.header__start {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.header__start-item {}
+
+.header__logo {}
+
+.header__end {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+
+}
+
+.header__end-item {
+    display: block;
+
+}
+
+.header__bnt {
+    margin-right: 20px;
+}
+
+@media screen and (max-width:620px) {
+
+    .header__bnt {
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width:350px) {
+    .header__bnt {
+        margin-right: 4px;
+    }
+}
+
+.header__link {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+.header__login {}
+
+.header__slash {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    display: block;
+}
+
+.header__register {}
+
+
+
+.header__profile {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (max-width:620px) {
+
+    .header__login,
+    .header__slash,
+    .header__register {
+        display: none;
+    }
+
+    .header__profile {
+        margin: 0;
+    }
+}
+
+.footer {
+    background: var(--black-clr);
+}
+
+.footer__inner {
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+
+.footer__logo {
+    height: 40px;
+    display: flex;
+    text-decoration-style: none;
+    color: inherit;
+    align-items: center;
+}
+
+.main {
+    min-height: calc(100vh - 60px);
+}
+
+
+.section {
+    padding: 50px 0 30px 0;
+    min-height: 100vh;
+}
+
+
+.section__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    margin: 0;
+}
+
+.profile {
+    padding: 8px 0 30px;
+}
+
+.personal {}
+
+.profile__navigate {}
+
+.profile__navigate-tabs {
+    box-sizing: content-box;
+    margin: 0;
+    padding: 0 18px;
+    list-style: none;
+    border-radius: 10px;
+    display: flex;
+    gap: 0;
+    overflow: scroll;
+}
+
+.profile__navigate-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.profile__navigate-tab {}
+
+.profile__navigate-link {
+    display: block;
+    margin: 0 11px;
+    padding: 8px 2px;
+    background-color: var(--element-enactive-clr);
+    text-decoration: none;
+    color: var(--text-secondary-clr);
+    position: relative;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+}
+
+@media screen and (max-width: 360px) {
+    .profile__navigate-link {
+        font-size: 12px;
+    }
+}
+
+.profile__navigate-link::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 10px 10px 0px 0px;
+    left: -16px;
+    top: 0;
+    display: block;
+    background-color: inherit;
+    height: 100%;
+    width: 30px;
+    transform: skewX(-20deg);
+}
+
+.profile__navigate-link::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 10px 10px 0px 0px;
+    right: -16px;
+    top: 0;
+    display: block;
+    background-color: inherit;
+    height: 100%;
+    width: 30px;
+    transform: skewX(20deg);
+}
+
+.profile__navigate-link.current {
+    background-color: #fff;
+    color: var(--text-primary-clr);
+    z-index: 1;
+
+
+}
+
+
+
+
+.profile__tab-expanded {
+    padding: 40px 50px;
+    display: flex;
+    background: #FFFFFF;
+    border-radius: 8px;
+    gap: 10px;
+
+}
+
+@media screen and (max-width: 550px) {
+    .profile__tab-expanded {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .profile__tab-expanded {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+}
+
+.bookings__rooms {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bookings__room {}
+
+.bookings-room {
+    border: 1px solid rgba(29, 28, 32, 0.5);
+    border-radius: 8px;
+    padding: 29px 8px calc(10px + 1em);
+    position: relative;
+    width: 100%;
+}
+
+.bookings-room__info {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.bookings-room__title {
+    margin: 0 0 1em;
+    font-size: 18px;
+    font-weight: 600;
+    max-width: calc(100% - 50px);
+}
+
+.bookings-room__description {}
+
+.bookings-room__dates {}
+
+.dates {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.dates__date-name {
+    color: var(--text-secondary-clr);
+}
+
+.dates__date {}
+
+.bookings-room__read-more {
+    float: right;
+    display: block;
+    color: #338FFF;
+    text-decoration: underline;
+}

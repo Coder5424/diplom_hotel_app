@@ -6,6 +6,7 @@ class AvailabilityForm(forms.Form):
         ('Standard', 'Стандарт'),
         ('Superior', 'Стандарт+'),
         ('Deluxe', 'Люкс'),
+        ('Family', 'Семейный'),
     )
     room_type = forms.TypedChoiceField(
         choices=room_types, initial=1, required=True,

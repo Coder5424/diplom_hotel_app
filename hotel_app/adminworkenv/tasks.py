@@ -1,5 +1,5 @@
 import datetime
-
+from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from hotel_app.celery import app
 from .models import CheckIn
@@ -9,7 +9,7 @@ from .models import CheckIn
 def change_checkin_time():
     now = datetime.datetime.now()
 
-    if now.time() >= datetime.time(hour=17, minute=0):
+    if now.time() >= datetime.time(hour=13, minute=0):
         try:
             checkin = CheckIn.objects.get(
                 room=5,
@@ -57,15 +57,15 @@ def change_checkout_time():
 def test():
     now = datetime.datetime.now()
 
-    try:
-        checkin = CheckIn.objects.get(
-            created_at=datetime.date.today(),
-        )
+    checkin = CheckIn.objects.filter(
+        created_at__contains=datetime.date.today() - datetime.timedelta(days=91),
+    ).delete()
 
-        return checkin
+    if checkin[0] == 0:
+        return 'NO DELETE'
+    else:
+        return 'DELETE OK'
 
-    except ObjectDoesNotExist:
-        return 'NOOOOOOO'
 
 
 
