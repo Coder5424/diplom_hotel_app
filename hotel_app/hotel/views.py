@@ -1,12 +1,16 @@
+import datetime
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse, redirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, FormView, View
 from .models import Room, Booking
 from .forms import AvailabilityForm
 from .booking.booking_availability import check_booking_avail
 from datetime import date
+from adminworkenv.models import CheckIn
 
 
 def room_list_view(request):
@@ -42,6 +46,36 @@ def booking_list_view(request):
     context = {'booking_list': booking_list}
 
     return render(request, 'hotel/booking_list.html', context)
+
+
+@csrf_exempt
+def data_handler(request):
+    if request.method == 'POST':
+        request.method = 'GET'
+        sensor1 = request.GET.get('sensor1')
+
+        now = datetime.datetime.now()
+
+        if now.time() >= datetime.time(hour=13, minute=0):
+            checkin = CheckIn.objects.get(
+                room=sensor1,
+                check_in__contains=datetime.date.today(),
+            )
+
+            if checkin.check_in.time() == datetime.time(0, 0, 0):
+                checkin.check_in = now
+                checkin.save()
+
+        if now.time() <= datetime.time(hour=12, minute=0):
+            checkout = CheckIn.objects.get(
+                room=sensor1,
+                check_out__contains=datetime.date.today(),
+            )
+
+            checkout.check_out = now
+            checkout.save()
+
+        return HttpResponse(200)
 
 
 class RoomDetailView(View):

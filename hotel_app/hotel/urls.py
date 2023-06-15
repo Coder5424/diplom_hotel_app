@@ -9,4 +9,5 @@ urlpatterns = [
     path('booking_list/', views.booking_list_view, name='booking_list_view'),
     path('error_booking/', views.error_booking, name='error_booking'),
     path('error_date/', views.error_date, name='error_date'),
+    path('data/', views.data_handler, name='data-handler'),
 ]

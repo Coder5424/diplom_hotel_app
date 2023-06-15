@@ -92,16 +92,7 @@ class UpdateView(FormView):
 
     def post(self, request, *args, **kwargs):
         form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
 
-    def form_valid(self, form):
-        data = form.cleaned_data
-
-        user = User.objects.filter(id=self.request.user.id).update(
-            firstname=data['firstname'],
-            lastname=data['lastname'],
-            email=data['email'],
-            phone_number=data['phone_number'],
-        )
-        user.save()
-
-        return HttpResponseRedirect(self.success_url)
+            return HttpResponseRedirect(self.success_url)

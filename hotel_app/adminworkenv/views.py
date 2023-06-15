@@ -178,7 +178,7 @@ class GetExcelView(FormView):
             font_style = xlwt.XFStyle()
             font_style.font.bold = True
 
-            columns = ['First Name', 'Last Name', 'Email Address', 'Check in', 'Check out']
+            columns = ['Фамилия', 'Имя', 'Почта', 'Дата заезда', 'Дата выезда']
 
             for col_num in range(len(columns)):
                 ws.write(row_num, col_num, columns[col_num], font_style)

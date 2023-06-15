@@ -348,6 +348,8 @@ body {
     border-radius: 8px;
     padding: 29px 8px calc(10px + 1em);
     position: relative;
+    left:50%;
+    top:50%;
     width: 100%;
 }
 
